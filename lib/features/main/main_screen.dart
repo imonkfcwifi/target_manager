@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:target_manager/features/main/shoot_record_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -10,11 +11,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("hi"),
-      ),
-      body: Container(),
-    );
+    return NumberPad();
   }
 }
