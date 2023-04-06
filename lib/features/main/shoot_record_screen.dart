@@ -12,15 +12,6 @@ class _NumberPadState extends State<NumberPad> {
 
   final List<int> _numbers = [];
 
-  void _addToTotal(int number) {
-    setState(() {
-      _numbers.add(number);
-      _total += number;
-      _count++;
-      _average = _total / _count;
-    });
-  }
-
   void _cancelLast() {
     if (_numbers.isNotEmpty) {
       int lastNumber = _numbers.removeLast();
@@ -36,12 +27,50 @@ class _NumberPadState extends State<NumberPad> {
     }
   }
 
+  void _addToTotal(int number) {
+    setState(() {
+      _numbers.add(number);
+      _total += number;
+      _count++;
+      _average = _total / _count;
+    });
+  }
+
   void _reset() {
     setState(() {
       _total = 0;
       _count = 0;
       _average = 0.0;
     });
+  }
+
+  Widget _buildNumberButton(int number) {
+    return GestureDetector(
+      onTap: () => _addToTotal(number),
+      onLongPress: () {
+        if (_count > 0) {
+          setState(() {
+            _total -= number;
+            _count--;
+            _average = _count > 0 ? _total / _count : 0.0;
+          });
+        }
+      },
+      child: Container(
+        width: 80,
+        height: 80,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.blue,
+        ),
+        child: Center(
+          child: Text(
+            number.toString(),
+            style: const TextStyle(fontSize: 32, color: Colors.white),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -131,35 +160,6 @@ class _NumberPadState extends State<NumberPad> {
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNumberButton(int number) {
-    return GestureDetector(
-      onTap: () => _addToTotal(number),
-      onLongPress: () {
-        if (_count > 0) {
-          setState(() {
-            _total -= number;
-            _count--;
-            _average = _count > 0 ? _total / _count : 0.0;
-          });
-        }
-      },
-      child: Container(
-        width: 80,
-        height: 80,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.blue,
-        ),
-        child: Center(
-          child: Text(
-            number.toString(),
-            style: const TextStyle(fontSize: 32, color: Colors.white),
-          ),
         ),
       ),
     );
