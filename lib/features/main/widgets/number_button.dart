@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Numberpad extends StatefulWidget {
+class NumberPadForm extends StatefulWidget {
   @override
-  _NumberpadState createState() => _NumberpadState();
+  _NumberPadFormState createState() => _NumberPadFormState();
 }
 
-class _NumberpadState extends State<Numberpad> {
+class _NumberPadFormState extends State<NumberPadForm> {
   int _total = 0;
   int _count = 0;
   double _average = 0.0;

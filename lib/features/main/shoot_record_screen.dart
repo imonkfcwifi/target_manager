@@ -12,18 +12,17 @@ class _NumberPadState extends State<NumberPad> {
 
   final List<int> _numbers = [];
 
-  void _cancelLast() {
+  void _removeLastNumber() {
     if (_numbers.isNotEmpty) {
-      int lastNumber = _numbers.removeLast();
-      setState(() {
-        _total -= lastNumber;
+      final lastNumber = _numbers.removeLast();
+      if (_count > 0) {
         _count--;
-        if (_count == 0) {
-          _average = 0.0;
-        } else {
-          _average = _total / _count;
+        if (_total >= lastNumber) {
+          _total -= lastNumber;
         }
-      });
+      }
+      _average = _count == 0 ? 0 : _total / _count;
+      setState(() {});
     }
   }
 
@@ -77,7 +76,7 @@ class _NumberPadState extends State<NumberPad> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Number Pad'),
+        title: const Text('Target Manager'),
       ),
       body: Center(
         child: Column(
@@ -130,8 +129,8 @@ class _NumberPadState extends State<NumberPad> {
               children: <Widget>[
                 _buildNumberButton(10),
                 ElevatedButton(
-                  onPressed: _cancelLast, // changed to cancel last number
-                  child: const Text('Cancel'),
+                  onPressed: _removeLastNumber, // changed to cancel last number
+                  child: const Text('취소'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -139,23 +138,33 @@ class _NumberPadState extends State<NumberPad> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Text('Results'),
+                          title: const Text('Target Manager'),
                           content: Text(
-                            'Average: ${_average.toStringAsFixed(2)}\nCount: $_count',
-                          ),
+                              '평균 점수: ${_average.toStringAsFixed(2)}\n슈팅 횟수: $_count,\n최종 점수: $_total'),
                           actions: <Widget>[
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('OK'),
+                              child: const Text('계속 기록하기'),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _total = 0;
+                                  _count = 0;
+                                  _average = 0.0;
+                                });
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('점수 초기화'),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  child: const Text('Confirm'),
+                  child: const Text('점수 확인'),
                 ),
               ],
             ),
