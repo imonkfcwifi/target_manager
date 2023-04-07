@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:target_manager/features/main/result_list_screen.dart';
+
+import '../db/db.dart';
 
 class NumberPad extends StatefulWidget {
+  const NumberPad({super.key});
+
   @override
-  _NumberPadState createState() => _NumberPadState();
+  NumberPadState createState() => NumberPadState();
 }
 
 Future<void> _saveData(int total, int count, double average) async {
@@ -14,19 +17,12 @@ Future<void> _saveData(int total, int count, double average) async {
   await prefs.setDouble('average', average);
 }
 
-class _NumberPadState extends State<NumberPad> {
+class NumberPadState extends State<NumberPad> {
   int _total = 0;
   int _count = 0;
   double _average = 0.0;
 
   final List<int> _numbers = [];
-
-  void _navigateToResultListScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ResultListScreen()),
-    );
-  }
 
   void _removeLastNumber() {
     if (_numbers.isNotEmpty) {
@@ -51,12 +47,9 @@ class _NumberPadState extends State<NumberPad> {
     });
   }
 
-  void _reset() {
-    setState(() {
-      _total = 0;
-      _count = 0;
-      _average = 0.0;
-    });
+  Future<void> _saveData(int total, int count, double average) async {
+    final dbHelper = DbHelper();
+    await dbHelper.saveResult(total, count, average);
   }
 
   Widget _buildNumberButton(int number) {

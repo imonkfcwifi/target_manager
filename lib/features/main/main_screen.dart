@@ -15,7 +15,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _children = [
     NumberPad(),
-    const ResultListScreen(),
+    ResultListScreen(),
     const SettingsScreen()
   ];
 

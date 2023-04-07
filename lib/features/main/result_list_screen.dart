@@ -1,58 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../db/db.dart';
-import 'widgets/resultcard.dart';
 
-class ResultListScreen extends StatefulWidget {
-  const ResultListScreen({Key? key}) : super(key: key);
-
-  @override
-  _ResultListScreenState createState() => _ResultListScreenState();
-}
-
-class _ResultListScreenState extends State<ResultListScreen> {
-  List<Result> _results = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }
-
-  Future<void> _loadData() async {
-    final dbHelper = DbHelper();
-    final results = await dbHelper.getResults();
-    setState(() {
-      _results = results;
-    });
-  }
-
+class ResultListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Results'),
       ),
-      body: _results.isEmpty
-          ? const Center(
-              child: Text('No Results'),
-            )
-          : ListView.builder(
-              itemCount: _results.length,
+      body: FutureBuilder<List<Record>>(
+        future: DbHelper().getResult(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final records = snapshot.data!;
+            return ListView.builder(
+              itemCount: records.length,
               itemBuilder: (context, index) {
-                final result = _results[index];
-                return ResultCard(
-                  result: result,
-                  onDelete: () async {
-                    final dbHelper = DbHelper();
-                    await dbHelper.deleteResult(result);
-                    setState(() {
-                      _results.remove(result);
-                    });
-                  },
+                final record = records[index];
+                return ListTile(
+                  title: Text(
+                    'Total: ${record.total}, Count: ${record.count}, Average: ${record.average.toStringAsFixed(2)}, ${DateFormat("yyyy년 MM월 dd일").format(DateTime.now())}',
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () async {
+                      await DbHelper().deleteRecord(record.id ?? 0);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Record deleted')),
+                      );
+                    },
+                  ),
                 );
               },
-            ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
 }
