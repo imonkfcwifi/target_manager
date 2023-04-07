@@ -8,6 +8,7 @@ const String columnId = 'id';
 const String columnTotal = 'total';
 const String columnCount = 'count';
 const String columnAverage = 'average';
+late Database _database;
 
 class DbHelper {
   static const _keyTotal = 'total';
@@ -67,11 +68,7 @@ class DbHelper {
     final db = await _database;
     final List<Map<String, dynamic>> maps = await db.query(tableResult);
     return List.generate(maps.length, (i) {
-      return Record(
-        total: maps[i][columnTotal],
-        count: maps[i][columnCount],
-        average: maps[i][columnAverage],
-      );
+      return Record.fromMap(maps[i]);
     });
   }
 
@@ -89,6 +86,21 @@ class DbHelper {
     final db = await _database;
     await db.delete(tableResult, where: '$columnId = ?', whereArgs: [id]);
   }
+}
+
+Future<void> deleteRecord(int id) async {
+  final db = _database;
+  await db.delete(tableResult, where: '$columnId = ?', whereArgs: [id]);
+
+  final prefs = await SharedPreferences.getInstance();
+  final resultsJson = prefs.getString('results') ?? '[]';
+  final List<dynamic> resultsData = json.decode(resultsJson);
+  final List<Result> results =
+      resultsData.map((resultJson) => Result.fromJson(resultJson)).toList();
+  results.removeWhere((result) => result.total == id);
+  final updatedResultsJson =
+      json.encode(results.map((result) => result.toJson()).toList());
+  await prefs.setString('results', updatedResultsJson);
 }
 
 class Result {
@@ -124,4 +136,19 @@ class Record {
   double average;
 
   Record({required this.total, required this.count, required this.average});
+
+  // add this method to create a Record object from a Map
+  Record.fromMap(Map<String, dynamic> map)
+      : id = map[columnId],
+        total = map[columnTotal],
+        count = map[columnCount],
+        average = map[columnAverage];
+
+  // add this method to convert a Record object to a Map
+  Map<String, dynamic> toMap() => {
+        columnId: id,
+        columnTotal: total,
+        columnCount: count,
+        columnAverage: average,
+      };
 }

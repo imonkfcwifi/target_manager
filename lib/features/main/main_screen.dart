@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:target_manager/features/main/result_list_screen.dart';
-import 'package:target_manager/features/main/setting_screen.dart';
 import 'package:target_manager/features/main/shoot_record_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,7 +15,6 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _children = [
     NumberPad(),
     ResultListScreen(),
-    const SettingsScreen()
   ];
 
   void onTabTapped(int index) {
@@ -40,10 +38,6 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'Shoot Record',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
           ),
         ],
       ),

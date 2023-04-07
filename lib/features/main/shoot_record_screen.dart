@@ -4,8 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../db/db.dart';
 
 class NumberPad extends StatefulWidget {
-  const NumberPad({super.key});
-
   @override
   NumberPadState createState() => NumberPadState();
 }
