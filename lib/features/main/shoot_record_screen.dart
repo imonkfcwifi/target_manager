@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:target_manager/features/main/result_list_screen.dart';
 
 class NumberPad extends StatefulWidget {
   @override
   _NumberPadState createState() => _NumberPadState();
+}
+
+Future<void> _saveData(int total, int count, double average) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('total', total);
+  await prefs.setInt('count', count);
+  await prefs.setDouble('average', average);
 }
 
 class _NumberPadState extends State<NumberPad> {
@@ -11,6 +20,13 @@ class _NumberPadState extends State<NumberPad> {
   double _average = 0.0;
 
   final List<int> _numbers = [];
+
+  void _navigateToResultListScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ResultListScreen()),
+    );
+  }
 
   void _removeLastNumber() {
     if (_numbers.isNotEmpty) {
@@ -130,41 +146,38 @@ class _NumberPadState extends State<NumberPad> {
                 _buildNumberButton(10),
                 ElevatedButton(
                   onPressed: _removeLastNumber, // changed to cancel last number
-                  child: const Text('취소'),
+                  child: const Text('cancel'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await _saveData(_total, _count, _average);
                     showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
                           title: const Text('Target Manager'),
                           content: Text(
-                              '평균 점수: ${_average.toStringAsFixed(2)}\n슈팅 횟수: $_count,\n최종 점수: $_total'),
+                            '평균 점수: ${_average.toStringAsFixed(2)}\n슈팅 횟수: $_count,\n최종 점수: $_total',
+                          ),
                           actions: <Widget>[
                             ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('계속 기록하기'),
+                              child: const Text('Save'),
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                setState(() {
-                                  _total = 0;
-                                  _count = 0;
-                                  _average = 0.0;
-                                });
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('점수 초기화'),
+                              child: const Text('Cancel'),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  child: const Text('점수 확인'),
+                  child: const Text('result'),
                 ),
               ],
             ),
