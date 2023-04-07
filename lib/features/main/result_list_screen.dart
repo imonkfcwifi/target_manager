@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import '../db/db.dart';
 
 class ResultListScreen extends StatelessWidget {
+  const ResultListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,7 @@ class ResultListScreen extends StatelessWidget {
                         trailing: IconButton(
                           icon: const Icon(Icons.delete),
                           onPressed: () async {
-                            await DbHelper().deleteRecord(record.id ?? 0);
+                            DbHelper().deleteRecord(record.id ?? 0);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Record deleted')),
                             );
@@ -41,7 +43,7 @@ class ResultListScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await DbHelper().deleteResult();
+                    DbHelper().deleteResult();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('All records deleted')),
                     );

@@ -158,6 +158,9 @@ class NumberPadState extends State<NumberPad> {
                               child: const Text('Save'),
                             ),
                             ElevatedButton(
+                              style: const ButtonStyle(
+                                  animationDuration:
+                                      Duration(milliseconds: 300)),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
