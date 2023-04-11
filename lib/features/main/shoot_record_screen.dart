@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/db.dart';
-
+// MVVM 방식으로 분류할 필요성이 있음
 class NumberPad extends StatefulWidget {
   @override
   NumberPadState createState() => NumberPadState();
