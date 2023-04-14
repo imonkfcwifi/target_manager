@@ -1,4 +1,4 @@
-class  extends ConsumerWidget {
+class  extends  {
   const ({super.key});
 
   @override
