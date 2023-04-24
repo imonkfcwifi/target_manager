@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:target_manager/features/main/result_list_screen.dart';
+import 'package:target_manager/features/main/setting_screen.dart';
 import 'package:target_manager/features/main/shoot_record_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,6 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _children = [
     NumberPad(),
     ResultListScreen(),
+    InfoBox(),
   ];
 
   void onTabTapped(int index) {
@@ -32,12 +35,16 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _currentIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.keyboard),
-            label: 'Number Pad',
+            icon: Icon(Icons.ads_click),
+            label: '슈팅하기',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Shoot Record',
+            label: '슈팅기록',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_sharp),
+            label: '튜토리얼',
           ),
         ],
       ),

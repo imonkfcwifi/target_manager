@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/db.dart';
+
 // MVVM 방식으로 분류할 필요성이 있음
 class NumberPad extends StatefulWidget {
   @override
@@ -83,24 +84,24 @@ class NumberPadState extends State<NumberPad> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Target Manager'),
+        title: const Text('타겟 매니저'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Total: $_total',
+              '합계: $_total',
               style: const TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 16),
             Text(
-              'Count: $_count',
+              '슈팅 횟수: $_count',
               style: const TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 16),
             Text(
-              'Average: ${_average.toStringAsFixed(2)}',
+              '평균 값: ${_average.toStringAsFixed(2)}',
               style: const TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 32),
@@ -137,11 +138,12 @@ class NumberPadState extends State<NumberPad> {
                 _buildNumberButton(10),
                 ElevatedButton(
                   onPressed: _removeLastNumber, // changed to cancel last number
-                  child: const Text('cancel'),
+                  child: const Text('취소'),
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     await _saveData(_total, _count, _average);
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -155,7 +157,7 @@ class NumberPadState extends State<NumberPad> {
                               onPressed: () async {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('Save'),
+                              child: const Text('데이터 저장'),
                             ),
                             ElevatedButton(
                               style: const ButtonStyle(
@@ -164,14 +166,14 @@ class NumberPadState extends State<NumberPad> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('Cancel'),
+                              child: const Text('닫기'),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  child: const Text('result'),
+                  child: const Text('저장'),
                 ),
               ],
             ),

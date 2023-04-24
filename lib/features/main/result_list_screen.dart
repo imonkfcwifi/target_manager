@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:target_manager/constants/gaps.dart';
 
 import '../db/db.dart';
 
@@ -24,9 +25,11 @@ class ResultListScreen extends StatelessWidget {
                     itemCount: records.length,
                     itemBuilder: (context, index) {
                       final record = records[index];
-                      return ListTile(
-                        title: Text(
-                          'Total: ${record.total}, Count: ${record.count}, Average: ${record.average.toStringAsFixed(2)}, ${DateFormat("yyyy년 MM월 dd일").format(DateTime.now())}',
+                      return Card(
+                        child: ListTile(
+                          title: Text(
+                            'Total: ${record.total}, Count: ${record.count}, Average: ${record.average.toStringAsFixed(2)}',
+                          ),
                         ),
                       );
                     },
