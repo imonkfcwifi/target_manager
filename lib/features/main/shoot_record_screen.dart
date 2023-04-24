@@ -138,7 +138,7 @@ class NumberPadState extends State<NumberPad> {
                 _buildNumberButton(10),
                 ElevatedButton(
                   onPressed: _removeLastNumber, // changed to cancel last number
-                  child: const Text('취소'),
+                  child: const Text('점수 취소'),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -148,9 +148,9 @@ class NumberPadState extends State<NumberPad> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Text('Target Manager'),
+                          title: const Text('타겟 매니저'),
                           content: Text(
-                            '평균 점수: ${_average.toStringAsFixed(2)}\n슈팅 횟수: $_count,\n최종 점수: $_total',
+                            '수고하셨습니다.\n평균 점수: ${_average.toStringAsFixed(2)}\n슈팅 횟수: $_count\n최종 점수: $_total',
                           ),
                           actions: <Widget>[
                             ElevatedButton(
@@ -173,7 +173,7 @@ class NumberPadState extends State<NumberPad> {
                       },
                     );
                   },
-                  child: const Text('저장'),
+                  child: const Text('저장하기'),
                 ),
               ],
             ),

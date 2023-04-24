@@ -24,11 +24,11 @@ class ResultListScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: records.length,
                     itemBuilder: (context, index) {
-                      final record = records[index];
+                      final record = records.reversed.toList()[index];
                       return Card(
                         child: ListTile(
                           title: Text(
-                            'Total: ${record.total}, Count: ${record.count}, Average: ${record.average.toStringAsFixed(2)}',
+                            '최종점수: ${record.total}, 슈팅횟수: ${record.count}, 평균: ${record.average.toStringAsFixed(2)}',
                           ),
                         ),
                       );
