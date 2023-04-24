@@ -21,7 +21,7 @@ class InfoBox extends StatelessWidget {
           ),
           SizedBox(height: 16.0),
           Text(
-            "1. 타겟매니저는 1부터 10까지로 이루어진 NumberPad로 구성되어있습니다",
+            "1. 타겟 매니저는 1부터 10까지로 이루어진 NumberPad로 구성되어있습니다",
             style: TextStyle(
               fontSize: 18.0,
               color: Colors.grey,
@@ -37,7 +37,7 @@ class InfoBox extends StatelessWidget {
           ),
           Gaps.v10,
           Text(
-            "3. NumberPad를 1.5초가량 길게 누를 시 누른 NumberPad 만큼 점수와  차감됩니다",
+            "3. NumberPad를 1.1초가량 길게 누를 시 누른 NumberPad 만큼 점수와 횟수가 차감됩니다",
             style: TextStyle(
               fontSize: 18.0,
               color: Colors.grey,
