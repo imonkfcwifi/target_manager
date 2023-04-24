@@ -67,9 +67,25 @@ class DbHelper {
   Future<List<Record>> getResult() async {
     final db = await _database;
     final List<Map<String, dynamic>> maps = await db.query(tableResult);
-    return List.generate(maps.length, (i) {
-      return Record.fromMap(maps[i]);
-    });
+    final List<Record> results =
+        List.generate(maps.length, (i) => Record.fromMap(maps[i]));
+
+    final prefs = await SharedPreferences.getInstance();
+    final resultsJson = prefs.getString('results') ?? '[]';
+    final List<dynamic> resultsData = json.decode(resultsJson);
+    final List<Result> latestResult =
+        resultsData.map((resultJson) => Result.fromJson(resultJson)).toList();
+
+    if (latestResult.isNotEmpty) {
+      final record = Record(
+        total: latestResult.last.total,
+        count: latestResult.last.count,
+        average: latestResult.last.average,
+      );
+      results.add(record);
+    }
+
+    return results;
   }
 
   Future<void> deleteResult() async {
