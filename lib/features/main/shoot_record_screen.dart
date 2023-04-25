@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:target_manager/constants/gaps.dart';
@@ -28,6 +29,11 @@ class NumberPadState extends State<NumberPad> {
   int _lastNumber = 0;
   final List<int> _numbers = [];
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _removeLastNumber() {
     if (_numbers.isNotEmpty) {
       final lastNumber = _numbers.removeLast();
@@ -42,7 +48,7 @@ class NumberPadState extends State<NumberPad> {
     }
   }
 
-  void _addToTotal(int number) {
+  void _addToTotal(int number) async {
     setState(() {
       _numbers.add(number);
       _total += number;
@@ -59,7 +65,13 @@ class NumberPadState extends State<NumberPad> {
 
   Widget _buildNumberButton(int number) {
     return GestureDetector(
-      onTap: () => _addToTotal(number),
+      onTap: () {
+        _addToTotal(number);
+        final player = AudioPlayer();
+        player.play(
+          AssetSource('1.mp3'),
+        );
+      },
       onLongPress: () {
         if (_count > 0) {
           setState(() {
