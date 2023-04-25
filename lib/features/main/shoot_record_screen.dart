@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:target_manager/constants/gaps.dart';
 
 import '../db/db.dart';
 
@@ -84,98 +85,111 @@ class NumberPadState extends State<NumberPad> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('타겟 매니저'),
+        title: const Text(
+          '타겟 매니저',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '합계: $_total',
-              style: const TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '슈팅 횟수: $_count',
-              style: const TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '평균 값: ${_average.toStringAsFixed(2)}',
-              style: const TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildNumberButton(1),
-                _buildNumberButton(2),
-                _buildNumberButton(3),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildNumberButton(4),
-                _buildNumberButton(5),
-                _buildNumberButton(6),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildNumberButton(7),
-                _buildNumberButton(8),
-                _buildNumberButton(9),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildNumberButton(10),
-                ElevatedButton(
-                  onPressed: _removeLastNumber, // changed to cancel last number
-                  child: const Text('점수 취소'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    await _saveData(_total, _count, _average);
-                    // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('타겟 매니저'),
-                          content: Text(
-                            '수고하셨습니다.\n평균 점수: ${_average.toStringAsFixed(2)}\n슈팅 횟수: $_count\n최종 점수: $_total',
-                          ),
-                          actions: <Widget>[
-                            ElevatedButton(
-                              onPressed: () async {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('데이터 저장'),
-                            ),
-                            ElevatedButton(
-                              style: const ButtonStyle(
-                                  animationDuration:
-                                      Duration(milliseconds: 300)),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('닫기'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: const Text('저장하기'),
-                ),
-              ],
+        child: ListView(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Gaps.v32,
+                  Text(
+                    '합계: $_total',
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    '슈팅 횟수: $_count',
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    '평균 값: ${_average.toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 32),
+                  Gaps.v32,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildNumberButton(1),
+                      _buildNumberButton(2),
+                      _buildNumberButton(3),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildNumberButton(4),
+                      _buildNumberButton(5),
+                      _buildNumberButton(6),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildNumberButton(7),
+                      _buildNumberButton(8),
+                      _buildNumberButton(9),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildNumberButton(10),
+                      ElevatedButton(
+                        onPressed:
+                            _removeLastNumber, // changed to cancel last number
+                        child: const Text('점수 취소'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await _saveData(_total, _count, _average);
+                          // ignore: use_build_context_synchronously
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('타겟 매니저'),
+                                content: Text(
+                                  '수고하셨습니다.\n최종 점수: $_total\n슈팅 횟수: $_count\n평균 점수: ${_average.toStringAsFixed(2)}',
+                                ),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('데이터 저장'),
+                                  ),
+                                  ElevatedButton(
+                                    style: const ButtonStyle(
+                                        animationDuration:
+                                            Duration(milliseconds: 300)),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('닫기'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: const Text('저장하기'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

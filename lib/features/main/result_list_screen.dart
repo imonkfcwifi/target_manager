@@ -11,7 +11,10 @@ class ResultListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Results'),
+        title: const Text(
+          '슈팅기록',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: FutureBuilder<List<Record>>(
         future: DbHelper().getResult(),
