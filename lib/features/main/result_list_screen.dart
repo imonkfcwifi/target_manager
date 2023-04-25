@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:target_manager/constants/gaps.dart';
+import 'package:target_manager/features/db/db.dart';
 
-import '../db/db.dart';
+class ResultListScreen extends StatefulWidget {
+  const ResultListScreen({Key? key}) : super(key: key);
 
-class ResultListScreen extends StatelessWidget {
-  const ResultListScreen({super.key});
+  @override
+  _ResultListScreenState createState() => _ResultListScreenState();
+}
+
+class _ResultListScreenState extends State<ResultListScreen> {
+  late Future<List<Record>> _futureRecords;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureRecords = DbHelper().getResult();
+  }
+
+  Future<void> _ondis(List<Record> records, int index) async {
+    final record = records.toList()[index];
+    DbHelper().deleteRecord(record.id ?? 0);
+    setState(() {
+      records.removeAt(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +35,7 @@ class ResultListScreen extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<List<Record>>(
-        future: DbHelper().getResult(),
+        future: _futureRecords,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final records = snapshot.data!;
@@ -27,11 +45,18 @@ class ResultListScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: records.length,
                     itemBuilder: (context, index) {
-                      final record = records.reversed.toList()[index];
+                      final record = records[index];
                       return Card(
-                        child: ListTile(
-                          title: Text(
-                            '최종점수: ${record.total}, 슈팅횟수: ${record.count}, 평균: ${record.average.toStringAsFixed(2)}',
+                        child: Dismissible(
+                          onDismissed: (direction) => _ondis(records, index),
+                          background: Container(
+                            color: Colors.red,
+                          ),
+                          key: Key(record.id.toString()),
+                          child: ListTile(
+                            title: Text(
+                              '최종점수: ${record.total}, 슈팅횟수: ${record.count}, 평균: ${record.average.toStringAsFixed(2)}',
+                            ),
                           ),
                         ),
                       );

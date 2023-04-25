@@ -101,6 +101,16 @@ class DbHelper {
   Future<void> deleteRecord(int id) async {
     final db = await _database;
     await db.delete(tableResult, where: '$columnId = ?', whereArgs: [id]);
+
+    final prefs = await SharedPreferences.getInstance();
+    final resultsJson = prefs.getString('results') ?? '[]';
+    final List<dynamic> resultsData = json.decode(resultsJson);
+    final List<Result> results =
+        resultsData.map((resultJson) => Result.fromJson(resultJson)).toList();
+    results.removeWhere((result) => result.total == id);
+    final updatedResultsJson =
+        json.encode(results.map((result) => result.toJson()).toList());
+    await prefs.setString('results', updatedResultsJson);
   }
 }
 

@@ -43,32 +43,6 @@ class MyApp extends StatelessWidget {
         // To use the playground font, add GoogleFonts package and uncomment
         // fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
-      darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.ebonyClay,
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 15,
-        tabBarStyle: FlexTabBarStyle.forBackground,
-        subThemesData: const FlexSubThemesData(
-          defaultRadius: 15.0,
-          thinBorderWidth: 5.0,
-          textButtonRadius: 5.0,
-          outlinedButtonBorderWidth: 1.5,
-          outlinedButtonPressedBorderWidth: 2.5,
-          sliderValueTinted: true,
-          sliderTrackHeight: 8,
-          inputDecoratorRadius: 20.0,
-          chipRadius: 7.0,
-          cardRadius: 19.0,
-          popupMenuRadius: 4.0,
-          popupMenuElevation: 9.0,
-          dialogRadius: 18.0,
-          timePickerDialogRadius: 18.0,
-          bottomSheetRadius: 29.0,
-        ),
-        keyColors: const FlexKeyColors(),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-      ),
     );
   }
 }
