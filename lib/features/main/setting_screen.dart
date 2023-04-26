@@ -24,7 +24,7 @@ class InfoBox extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               Text(
-                "1. 타겟 매니저는 1부터 10까지로 이루어진 NumberPad로 구성되어있습니다",
+                "1. 타겟 매니저는 1부터 10까지로 이루어진 NumberPad로 구성되어있습니다.",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.black,
@@ -32,7 +32,7 @@ class InfoBox extends StatelessWidget {
               ),
               Gaps.v10,
               Text(
-                "2. NumberPad를 눌러 슈팅을 기록하고 '저장' 버튼을 눌러 '슈팅기록' 에 기록할 수 있습니다",
+                "2. NumberPad를 눌러 슈팅을 기록하고 '저장' 버튼을 눌러 '슈팅기록' 에 기록할 수 있습니다.",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.black,
@@ -40,7 +40,7 @@ class InfoBox extends StatelessWidget {
               ),
               Gaps.v10,
               Text(
-                "3. NumberPad를 1초가량 길게 누를 시 누른 NumberPad 만큼 점수와 횟수가 차감됩니다",
+                "3. NumberPad를 1초가량 길게 누를 시 누른 NumberPad 만큼 점수와 횟수가 차감됩니다.",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.black,
@@ -48,7 +48,7 @@ class InfoBox extends StatelessWidget {
               ),
               Gaps.v10,
               Text(
-                "4. NumberPad에서 '점수 취소' 를 누를 시 최근 기록된 점수와 횟수가 자동 차감됩니다",
+                "4. NumberPad에서 '점수 취소' 를 누를 시 최근 기록된 점수와 횟수가 자동 차감됩니다.",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.black,
@@ -56,7 +56,7 @@ class InfoBox extends StatelessWidget {
               ),
               Gaps.v10,
               Text(
-                "5. '슈팅기록'의 ListTile을 우측 혹은 좌측으로 가볍게 밀면 Data가 지워집니다. 최신 기록을 맨 아래 칸에 한번 더 표시하고 이는 지울 수 없습니다. 간혹 잘못 지울 경우를 대비해 DataBase에 영구 저장해두는 것입니다. 새로운 슈팅 기록을 저장할 시 자동 대체됩니다. (이게 다 사설서버를 못사서 그렇습니다 대신 백만원짜리 노트북을 질렀습니다...)",
+                "5. '슈팅기록'의 ListTile을 우측 혹은 좌측으로 가볍게 밀면 Data가 지워집니다. ",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.black,
@@ -72,7 +72,7 @@ class InfoBox extends StatelessWidget {
               ),
               Gaps.v10,
               Text(
-                "7. 간소화를 위해 슈팅 기록도중 다른 창(슈팅기록, 튜토리얼) 으로 이동시 '슈팅하기' 페이지가 자동으로 초기화 됩니다",
+                "7. 간소화를 위해 슈팅 기록도중 다른 창(슈팅기록, 튜토리얼) 으로 이동시 '슈팅하기' 페이지가 자동으로 초기화 됩니다. 유의바랍니다.",
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.black,

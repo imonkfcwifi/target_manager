@@ -99,7 +99,7 @@ class NumberPadState extends State<NumberPad> {
         child: Center(
           child: Text(
             number.toString(),
-            style: const TextStyle(fontSize: 32, color: Colors.white),
+            style: const TextStyle(fontSize: 42, color: Colors.white),
           ),
         ),
       ),
@@ -111,7 +111,7 @@ class NumberPadState extends State<NumberPad> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          '타겟 매니저 Beta 1.0 🪒',
+          '타겟 매니저 Beta 1.0 ',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
       ),

@@ -13,8 +13,8 @@ class _ResultListScreenState extends State<ResultListScreen> {
 
   @override
   void initState() {
-    super.initState();
     _futureRecords = DbHelper().getResult();
+    super.initState();
   }
 
   Future<void> _ondis(List<Record> records, int index) async {

@@ -16,18 +16,18 @@ class DbHelper {
   static const _keyAverage = 'average';
 
   Future<Database> get _database async {
-    return openDatabase(
+    return await openDatabase(
       'my_database.db',
       version: 1,
       onCreate: (db, version) {
         db.execute('''
-          CREATE TABLE $tableResult (
-            $columnId INTEGER PRIMARY KEY,
-            $columnTotal INTEGER,
-            $columnCount INTEGER,
-            $columnAverage REAL
-          )
-        ''');
+        CREATE TABLE $tableResult (
+          $columnId INTEGER PRIMARY KEY,
+          $columnTotal INTEGER,
+          $columnCount INTEGER,
+          $columnAverage REAL
+        )
+      ''');
       },
     );
   }
@@ -69,22 +69,6 @@ class DbHelper {
     final List<Map<String, dynamic>> maps = await db.query(tableResult);
     final List<Record> results =
         List.generate(maps.length, (i) => Record.fromMap(maps[i]));
-
-    final prefs = await SharedPreferences.getInstance();
-    final resultsJson = prefs.getString('results') ?? '[]';
-    final List<dynamic> resultsData = json.decode(resultsJson);
-    final List<Result> latestResult =
-        resultsData.map((resultJson) => Result.fromJson(resultJson)).toList();
-
-    if (latestResult.isNotEmpty) {
-      final record = Record(
-        total: latestResult.last.total,
-        count: latestResult.last.count,
-        average: latestResult.last.average,
-      );
-      results.add(record);
-    }
-
     return results;
   }
 
@@ -112,21 +96,6 @@ class DbHelper {
         json.encode(results.map((result) => result.toJson()).toList());
     await prefs.setString('results', updatedResultsJson);
   }
-}
-
-Future<void> deleteRecord(int id) async {
-  final db = _database;
-  await db.delete(tableResult, where: '$columnId = ?', whereArgs: [id]);
-
-  final prefs = await SharedPreferences.getInstance();
-  final resultsJson = prefs.getString('results') ?? '[]';
-  final List<dynamic> resultsData = json.decode(resultsJson);
-  final List<Result> results =
-      resultsData.map((resultJson) => Result.fromJson(resultJson)).toList();
-  results.removeWhere((result) => result.total == id);
-  final updatedResultsJson =
-      json.encode(results.map((result) => result.toJson()).toList());
-  await prefs.setString('results', updatedResultsJson);
 }
 
 class Result {
