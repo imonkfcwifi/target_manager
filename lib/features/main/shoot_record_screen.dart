@@ -121,23 +121,23 @@ class NumberPadState extends State<NumberPad> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                '합계: $_total',
+                'Total: $_total',
                 style:
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 10),
               Text(
-                '슈팅 횟수: $_count',
+                'Count: $_count',
                 style: const TextStyle(fontSize: 24),
               ),
               const SizedBox(height: 10),
               Text(
-                '평균 값: ${_average.toStringAsFixed(2)}',
+                'Average: ${_average.toStringAsFixed(2)}',
                 style: const TextStyle(fontSize: 24),
               ),
               const SizedBox(height: 10),
               Text(
-                '최근 값: $_lastNumber',
+                'Recent: $_lastNumber',
                 style: const TextStyle(fontSize: 24),
               ),
               const SizedBox(height: 16),
@@ -182,7 +182,7 @@ class NumberPadState extends State<NumberPad> {
                     ),
                     onPressed:
                         _removeLastNumber, // changed to cancel last number
-                    child: const Text('점수 취소'),
+                    child: const Text('Cancel'),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -199,16 +199,16 @@ class NumberPadState extends State<NumberPad> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text('타겟 매니저'),
+                            title: const Text('Target Manager'),
                             content: Text(
-                              '수고하셨습니다.\n최종 점수: $_total\n슈팅 횟수: $_count\n평균 점수: ${_average.toStringAsFixed(2)}',
+                              '수고하셨습니다.\nTotal: $_total\nCount: $_count\nAverage: ${_average.toStringAsFixed(2)}',
                             ),
                             actions: <Widget>[
                               ElevatedButton(
                                 onPressed: () async {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text('데이터 저장'),
+                                child: const Text('Save Data'),
                               ),
                               ElevatedButton(
                                 style: const ButtonStyle(
@@ -217,14 +217,14 @@ class NumberPadState extends State<NumberPad> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text('닫기'),
+                                child: const Text('Close'),
                               ),
                             ],
                           );
                         },
                       );
                     },
-                    child: const Text('저장하기'),
+                    child: const Text('Save'),
                   ),
                 ],
               ),

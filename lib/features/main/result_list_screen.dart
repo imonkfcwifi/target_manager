@@ -55,7 +55,7 @@ class _ResultListScreenState extends State<ResultListScreen> {
                           key: Key(record.id.toString()),
                           child: ListTile(
                             title: Text(
-                              '최종점수: ${record.total}, 슈팅횟수: ${record.count}, 평균: ${record.average.toStringAsFixed(2)}',
+                              'Total: ${record.total}, Count: ${record.count}, Average: ${record.average.toStringAsFixed(2)}',
                             ),
                           ),
                         ),
